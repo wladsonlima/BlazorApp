@@ -1,0 +1,27 @@
+﻿@page "/Todo/New"
+@rendermode InteractiveServer
+
+
+
+<h3>Add a New Todo</h3>
+<EditForm Model="_newTodo" OnValidSubmit="HandleValidSubmit" FormName="newTodoForm">
+    <DataAnnotationsValidator/>
+
+    
+    <div class="form-group col-4 mt-3">
+        <label for="title">Title</label>
+        <InputText id="title" @bind-Value="_newTodo.Title" class="form-control"/>
+        <ValidationMessage For="@(() => _newTodo.Title)"/>
+    </div>
+
+    <div class="form-group col-4 mt-3">
+        <label for="comments">Comments</label>
+        <InputText id="comments" @bind-Value="_newTodo.Comments" class="form-control"/>
+        <ValidationMessage For="@(() => _newTodo.Comments)"/>
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-3">Add Todo</button>
+</EditForm>
+
+
+
