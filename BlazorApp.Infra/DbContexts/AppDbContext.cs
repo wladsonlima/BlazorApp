@@ -1,4 +1,5 @@
-﻿using BlazorApp.Domain.Entities;
+﻿
+using BlazorApp.Shared.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace BlazorApp.Infra.DbContexts;

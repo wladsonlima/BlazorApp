@@ -1,10 +1,9 @@
-﻿using BlazorApp.Domain.Entities;
+﻿using BlazorApp.Shared.Entities;
 
 namespace BlazorApp.Domain.Repositories;
 
 public interface ITodoRepository
 {
-    public void AddTodo(Todo todo);
-
-    public IEnumerable<Todo> GetAllTodos();
+    Task AddTodo(Todo todo);
+    Task<List<Todo>> GetAllTodos();
 }

@@ -1,13 +1,19 @@
 ﻿@page "/Todo/New"
+@using _App.Model
 @rendermode InteractiveServer
 
-
-
 <h3>Add a New Todo</h3>
+
+@if (!string.IsNullOrEmpty(_errorMessage))
+{
+    <div class="alert alert-warning">
+        @_errorMessage
+    </div>
+}
+
 <EditForm Model="_newTodo" OnValidSubmit="HandleValidSubmit" FormName="newTodoForm">
     <DataAnnotationsValidator/>
 
-    
     <div class="form-group col-4 mt-3">
         <label for="title">Title</label>
         <InputText id="title" @bind-Value="_newTodo.Title" class="form-control"/>
@@ -23,5 +29,17 @@
     <button type="submit" class="btn btn-primary mt-3">Add Todo</button>
 </EditForm>
 
-
-
+@if (_todos.Any())
+{
+    <h3 class="mt-5">Todos</h3>
+    <ul class="list-group mt-3">
+        @foreach (var todo in _todos)
+        {
+            <li class="list-group-item">@todo.Title - @todo.Comments</li>
+        }
+    </ul>
+}
+else
+{
+    <p class="mt-5">No Todos found.</p>
+}

@@ -7,16 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Flunt" Version="2.0.5" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <ProjectReference Include="..\BlazorApp.Shared\BlazorApp.Shared.csproj" />
       <ProjectReference Include="..\Global.Shared\Global.Shared.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Entities\" />
     </ItemGroup>
 
 </Project>

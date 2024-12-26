@@ -1,19 +1,35 @@
-﻿using BlazorApp.Domain.Entities;
+﻿
 using BlazorApp.Domain.Repositories;
 using BlazorApp.Infra.DbContexts;
+using BlazorApp.Shared.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace BlazorApp.Infra.Repositories;
 
-public class TodoRepository(AppDbContext context) : ITodoRepository
+public class TodoRepository : ITodoRepository
 {
-    public void AddTodo(Todo todo)
+    private readonly AppDbContext _context;
+
+    public TodoRepository(AppDbContext context)
     {
-        context.Todos.Add(todo);
-        context.SaveChanges();
+        _context = context;
     }
 
-    public IEnumerable<Todo> GetAllTodos()
+    public async Task AddTodo(Todo todo)
     {
-        return context.Todos.ToList();
+        try
+        {
+            _context.Todos.Add(todo);
+            await _context.SaveChangesAsync();
+        }
+        catch (Exception e)
+        {
+            throw new InvalidOperationException("Erro ao adicionar Todo", e);
+        }
+    }
+
+    public async Task<List<Todo>> GetAllTodos()
+    {
+        return await _context.Todos.ToListAsync();
     }
 }

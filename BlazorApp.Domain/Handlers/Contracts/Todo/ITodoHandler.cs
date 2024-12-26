@@ -4,6 +4,7 @@ using Global.Shared.Handlers.Contracts;
 namespace BlazorApp.Domain.Handlers.Contracts.Todo;
 
 public interface ITodoHandler : 
-    IHandler<CreateTodoCommand>
+    IHandler<CreateTodoCommand>,
+    IHandler<GetAllTodoCommand>
 {
 }
