@@ -1,5 +1,6 @@
 ﻿@page "/Todo/New"
 @using _App.Model
+@using Flunt.Notifications
 @rendermode InteractiveServer
 
 <h3>Add a New Todo</h3>
@@ -8,6 +9,20 @@
 {
     <div class="alert alert-warning">
         @_errorMessage
+    </div>
+}
+
+@if (_listNotifications.Count > 0)
+{
+    <div class="alert alert-warning">
+        <h5 class="mt-5">Valide os dados.</h5>
+        <ul class="list-group mt-2">
+            @foreach (Notification err in _listNotifications)
+            {
+                <li class="list-group-item">@err.Key - @err.Message</li>
+            }
+        </ul>
+
     </div>
 }
 

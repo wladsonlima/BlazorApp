@@ -1,6 +1,8 @@
 ﻿using BlazorApp.Domain.Commands.Input.Todo;
 using BlazorApp.Domain.Commands.Output.Todo;
 using BlazorApp.Domain.Handlers.Contracts.Todo;
+using Flunt.Notifications;
+using Global.Shared.Commands;
 using Global.Shared.Commands.Contracts;
 using Microsoft.AspNetCore.Components;
 
@@ -12,7 +14,9 @@ public partial class New
 
     private List<BlazorApp.Shared.Entities.Todo> _todos = []; // Inicializa como uma lista vazia
     private Model.Todo _newTodo = new(); // Inicializa o novo Todo
-    private string? _errorMessage; // Para exibir mensagens de erro ou sucesso
+    private string? _errorMessage; // Para exibir mens agens de erro ou sucesso
+    private IReadOnlyCollection<Notification> _listNotifications = [];
+    
 
     protected override async Task OnInitializedAsync()
     {
@@ -43,6 +47,8 @@ public partial class New
     {
         try
         {
+            
+            _listNotifications = [];
             CreateTodoCommand command = new()
             {
                 Title = _newTodo.Title?.Trim(),
@@ -54,7 +60,8 @@ public partial class New
             if (result is not CreateTodoCommandResult cmd)
             {
                 // Caso a criação falhe, exibe uma mensagem de erro
-                _errorMessage = "Erro ao criar o Todo.";
+               InvalidCommandResult  cmdInvalid = (InvalidCommandResult) result;
+               _listNotifications = cmdInvalid.Data.Errors;
                 return;
             }
 

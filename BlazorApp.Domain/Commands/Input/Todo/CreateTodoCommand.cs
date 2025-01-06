@@ -14,6 +14,9 @@ public class CreateTodoCommand : Notifiable<Notification>, ICommand
     public void Validate()
     {
         AddNotifications(new Contract<Notification>()
-            .Requires());
+            .Requires()
+            .IsNotNullOrEmpty(Title, "Title", "Title is required")
+            .IsFalse(Title.Length < 5, "Title", "Title must be at least 5 characters")
+        );
     }
 }
